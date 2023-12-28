@@ -53,10 +53,10 @@ public class Menu {
                 case 2: {
                     double sum = t.tinhTienLai();
                     System.out.println("\n=========Tiền lãi========");
-                    System.out.printf("\n1.Tiền lãi tài khoản chính(%s): %,.3f\n", t.maSo, sum);
+                    System.out.printf("\n1.Tiền lãi tài khoản chính(%s): %,.0f\n", t.maSo, sum);
                     int i = 2;
                     for(var x : t.getTaiKhoanKH()){
-                        System.out.printf("\n%d.Tiền lãi tài khoản kỳ hạn %s(%s): %,.3f\n", i, x.getKyHan().layTen(), x.maSo, x.tinhTienLai());
+                        System.out.printf("\n%d.Tiền lãi tài khoản kỳ hạn %s(%s): %,.0f\n", i, x.getKyHan().layTen(), x.maSo, x.tinhTienLai());
                         sum+=x.tinhTienLai();
                         i++;
                     }

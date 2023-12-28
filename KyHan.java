@@ -10,7 +10,7 @@ public enum KyHan {
         }
         public double tinhTienLai(double x, LocalDate nt){
             Period khoangThoiGian = nt.until(LocalDate.now());
-            int soTuan = khoangThoiGian.getDays()/7;
+            int soTuan = (khoangThoiGian.getYears()*365+khoangThoiGian.getMonths()*30 + khoangThoiGian.getDays())/7;
             return x*this.laiSuat/100/365*7*soTuan;
         }
         public String layTen(){
@@ -23,7 +23,7 @@ public enum KyHan {
         }
         public double tinhTienLai(double x, LocalDate nt){
             Period khoangThoiGian = nt.until(LocalDate.now());
-            int soThang = khoangThoiGian.getMonths();
+            int soThang = khoangThoiGian.getYears()*12+khoangThoiGian.getMonths();
             return x*this.laiSuat/100/12*soThang;
         }
         public String layTen(){
@@ -36,7 +36,7 @@ public enum KyHan {
         }
         public double tinhTienLai(double x, LocalDate nt){
             Period khoangThoiGian = nt.until(LocalDate.now());
-            int soThang = khoangThoiGian.getMonths()/6;
+            int soThang = (khoangThoiGian.getYears()*12+khoangThoiGian.getMonths())/6;
             return x*this.laiSuat/100/2*soThang;
         }
         public String layTen(){
