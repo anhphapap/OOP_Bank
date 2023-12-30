@@ -4,7 +4,9 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Scanner;
 
 public class Menu {
     public static int chooseLog() {
@@ -41,7 +43,7 @@ public class Menu {
         int n;
         while (true) {
             CauHinh.clrscr();
-            System.out.printf("%s - %s", t.hoTen, t.maSo);
+            System.out.printf("%s - %s", t.getHoTen(), t.getMaSo());
             n = chooseMenu();
             switch (n) {
                 case 1: {
@@ -53,10 +55,10 @@ public class Menu {
                 case 2: {
                     double sum = t.tinhTienLai();
                     System.out.println("\n=========Tiền lãi========");
-                    System.out.printf("\n1.Tiền lãi tài khoản chính(%s): %,.0f\n", t.maSo, sum);
+                    System.out.printf("\n1.Tiền lãi tài khoản chính(%s): %,.0f\n", t.getMaSo(), sum);
                     int i = 2;
                     for(var x : t.getTaiKhoanKH()){
-                        System.out.printf("\n%d.Tiền lãi tài khoản kỳ hạn %s(%s): %,.0f\n", i, x.getKyHan().layTen(), x.maSo, x.tinhTienLai());
+                        System.out.printf("\n%d.Tiền lãi tài khoản kỳ hạn %s(%s): %,.0f\n", i, x.getKyHan().layTen(), x.getMaSo(), x.tinhTienLai());
                         sum+=x.tinhTienLai();
                         i++;
                     }
@@ -69,10 +71,10 @@ public class Menu {
                     int m;
                     double tien;
                     System.out.printf("\n=========Gửi tiền========\n");
-                    System.out.printf("1.Tài khoản chính (%s)\n", t.maSo);
+                    System.out.printf("1.Tài khoản chính (%s)\n", t.getMaSo());
                     for (int i = 0; i < l; i++)
                         System.out.printf("%d.Tài khoản kỳ hạn %s (%s)\n", i + 2,
-                                t.getTaiKhoanKH().get(i).getKyHan().layTen(), t.getTaiKhoanKH().get(i).maSo);
+                                t.getTaiKhoanKH().get(i).getKyHan().layTen(), t.getTaiKhoanKH().get(i).getMaSo());
                     System.out.printf("%d.Hủy\n", l + 2);
                     m = CauHinh.luaChon(1, l + 2);
                     if (m == 1) {
@@ -80,7 +82,7 @@ public class Menu {
                         tien = Double.parseDouble(CauHinh.sc.nextLine());
                         t.guiTien(tien);
                         System.out.println("Gửi tiền thành công!");
-                        System.out.printf("Số dư hiện tại: %,.0f\n", t.soTien);
+                        System.out.printf("Số dư hiện tại: %,.0f\n", t.getSoTien());
                     } else if (m == l + 2) {
                         break;
                     } else {
@@ -90,7 +92,7 @@ public class Menu {
                         int gt = kh.guiTien(tien, t);
                         if (gt == 1) {
                             System.out.println("Gửi tiền thành công!");
-                            System.out.printf("Số dư hiện tại: %,.0f\n", kh.soTien);
+                            System.out.printf("Số dư hiện tại: %,.0f\n", kh.getSoTien());
                         } else if (gt == 2) {
                             System.out.println(
                                     "Số tiền trong tài khoản chính của bạn không đủ để thực hiện giao dịch này!!!");
@@ -107,10 +109,10 @@ public class Menu {
                     int m;
                     double tien;
                     System.out.printf("\n=========Rút tiền========\n");
-                    System.out.printf("1.Tài khoản chính (%s)\n", t.maSo);
+                    System.out.printf("1.Tài khoản chính (%s)\n", t.getMaSo());
                     for (int i = 0; i < l; i++)
                         System.out.printf("%d.Tài khoản kỳ hạn %s (%s)\n", i + 2,
-                                t.getTaiKhoanKH().get(i).getKyHan().layTen(), t.getTaiKhoanKH().get(i).maSo);
+                                t.getTaiKhoanKH().get(i).getKyHan().layTen(), t.getTaiKhoanKH().get(i).getMaSo());
                     System.out.printf("%d.Hủy\n", l + 2);
                     m = CauHinh.luaChon(1, l + 2);
                     if (m == 1) {
@@ -118,8 +120,8 @@ public class Menu {
                         tien = Double.parseDouble(CauHinh.sc.nextLine());
                         if (t.canRutTien(tien) == 1) {
                             System.out.println("Rút tiền thành công!");
-                            t.soTien -= tien;
-                            System.out.printf("Số dư hiện tại: %,.0f\n", t.soTien);
+                            t.setSoTien(t.getSoTien()-tien);
+                            System.out.printf("Số dư hiện tại: %,.0f\n", t.getSoTien());
                         } else {
                             System.out.println("Số dư của bạn không đủ để thực hiện giao dịch!");
                         }
@@ -132,10 +134,10 @@ public class Menu {
                         int gt = kh.canRutTien(tien);
                         if (gt == 1) {
                             System.out.println("Rút tiền thành công!");
-                            kh.soTien -= tien;
-                            t.soTien += tien;
-                            System.out.printf("Số dư hiện tại: %,.0f\n", kh.soTien);
-                            System.out.printf("Số dư tài khoản chính: %,.0f\n", t.soTien);
+                            kh.setSoTien(kh.getSoTien()-tien);
+                            t.setSoTien(t.getSoTien()+tien);
+                            System.out.printf("Số dư hiện tại: %,.0f\n", kh.getSoTien());
+                            System.out.printf("Số dư tài khoản chính: %,.0f\n", t.getSoTien());
                         } else if (gt == 2) {
                             System.out.println(
                                     "Số dư của bạn không đủ để thực hiện giao dịch này!!!");
@@ -146,10 +148,10 @@ public class Menu {
                             m = CauHinh.luaChon(1, 2);
                             if (m == 1) {
                                 System.out.println("Rút tiền thành công!");
-                                kh.soTien -= tien;
-                                t.soTien += tien + t.tinhTienLai(tien, kh.ngayTao);
-                                System.out.printf("Số dư hiện tại: %,.0f\n", kh.soTien);
-                                System.out.printf("Số dư tài khoản chính: %,.0f\n", t.soTien);
+                                kh.setSoTien(kh.getSoTien()-tien);
+                                t.setSoTien(t.getSoTien()+tien+ t.tinhTienLai(tien, kh.getNgayTao()));
+                                System.out.printf("Số dư hiện tại: %,.0f\n", kh.getSoTien());
+                                System.out.printf("Số dư tài khoản chính: %,.0f\n", t.getSoTien());
                             } else {
                                 break;
                             }
@@ -263,10 +265,31 @@ public class Menu {
                         File f = new File("./BaiTapLon/Account");
                         File[] fs = f.listFiles();
                         for (int i = 0; i < fs.length - 1; i++) {
-                            TaiKhoanChinh t = new TaiKhoanChinh();
-                            t.dangKyFile(fs[i].getName());
-                            br.write(t.getUserName() + " - " + t.getPassword() + " - " + t.maSo + "\n");
-                            ql.them(t);
+                            try {
+                                File fi = new File("./BaiTapLon/Account/" + fs[i].getName());
+                                Scanner scf = new Scanner(fi);
+                                String ht,qq,cc,gt,ms,un,pw;
+                                LocalDate ns, nt;
+                                double st;
+                                ht = scf.nextLine();
+                                qq = scf.nextLine();
+                                cc = scf.nextLine();
+                                gt = scf.nextLine();
+                                ns = LocalDate.parse(scf.nextLine(), CauHinh.DATE_FORMAT);
+                                nt = LocalDate.parse(scf.nextLine(), CauHinh.DATE_FORMAT);
+                                st = Double.parseDouble(scf.nextLine());
+                                un = scf.nextLine();
+                                // this.ngayTao = LocalDate.now();
+                                ms = String.format("%d%02d%d%04d", nt.getDayOfMonth(), nt.getMonthValue(),
+                                        nt.getYear(), TaiKhoan.dem);
+                                pw = Integer.toString(CauHinh.rand.nextInt(900000) + 100000);
+                                TaiKhoanChinh t = new TaiKhoanChinh(ht,qq,cc,gt,ns,nt,ms,st,un,pw);
+                                br.write(t.getUserName() + " - " + t.getPassword() + " - " + t.getMaSo() + "\n");
+                                ql.them(t);
+                                scf.close();
+                            } catch (Exception e) {
+                                break;
+                            }
                         }
                         System.out.printf("\nThêm thành công %d tài khoản!\n", fs.length - 1);
                         br.close();
@@ -277,21 +300,66 @@ public class Menu {
                 }
                 case 1: {
                     System.out.println("\n=========Đăng ký========");
-                    TaiKhoanChinh t = new TaiKhoanChinh();
-                    if (t.isDangKy()) {
-                        do {
-                            System.out.print("Username: ");
-                            t.setUserName(CauHinh.sc.nextLine());
-                        } while (ql.isUser(t.getUserName()) && CauHinh.isUserName(t.getUserName()));
-                        System.out.println("\nChúc mừng bạn đã đăng ký thành công tài khoản!!!");
-                        System.out.println("Số tài khoản: " + t.maSo);
-                        System.out.printf("Số dư: %,.0f\n", t.soTien);
-                        System.out.println("Username: " + t.getUserName());
-                        System.out.println("Password: " + t.getPassword());
-                        System.out.println("Bạn có thể đổi mật khẩu ở lần đăng nhập tiếp theo!!!");
-                        ql.them(t);
-                    } else
+                    String ht,qq,cc,gt,ms,un,pw;
+                    LocalDate ns, nt;
+                    double st;
+                    boolean check;
+                    System.out.print("Họ và tên: ");
+                    ht = CauHinh.sc.nextLine();
+                    System.out.print("Quê quán: ");
+                    qq = CauHinh.sc.nextLine();
+                    do {
+                        check = false;
+                        System.out.print("Số căn cước: ");
+                        cc = CauHinh.sc.nextLine();
+                        if (!CauHinh.isNumberString(cc, 0)) {
+                            check = true;
+                            System.out.println("Số căn cước không hợp lệ (Chỉ bao gồm các chữ số)! Vui lòng thử lại!!!");
+                        }
+
+                    } while (check);
+                    do {
+                        System.out.print("Giới tính (Nam/Nu): ");
+                        gt = CauHinh.sc.nextLine();
+                        check = gt.equals("Nam") || gt.equals("Nu");
+                        if (!check)
+                            System.out.println("Thông tin sai! Xin vui lòng thử lại!");
+                    } while (!check);
+                    ns = LocalDate.now();
+                    do {
+                        check = false;
+                        System.out.print("Ngày sinh (dd/mm/yyyy): ");
+                        String ns1 = CauHinh.sc.nextLine();
+                        try {
+                            ns = LocalDate.parse(ns1, CauHinh.DATE_FORMAT);
+                        } catch (Exception ex) {
+                            System.out.println("Định dạng ngày sai! Xin vui lòng thử lại!");
+                            check = true;
+                        }
+                    } while (check);
+                    System.out.print("Số tiền gửi (Tối thiểu 50,000): ");
+                    st = Double.parseDouble(CauHinh.sc.nextLine());
+                    if (st < 50000) {
+                        System.out.println("Số tiền gửi không đủ để tạo tài khoản! Xin vui lòng thử lại sau!!!");
                         TaiKhoan.dem--;
+                        CauHinh.scrPause();
+                        break;
+                    }
+                    nt = LocalDate.now();
+                    ms = String.format("%d%02d%d%04d", nt.getDayOfMonth(), nt.getMonthValue(), nt.getYear(),TaiKhoan.dem);
+                    pw = Integer.toString(CauHinh.rand.nextInt(900000) + 100000);
+                    do {
+                        System.out.print("Username: ");
+                        un = CauHinh.sc.nextLine();
+                    } while (ql.isUser(un) && CauHinh.isUserName(un));
+                    TaiKhoanChinh tk = new TaiKhoanChinh(ht, qq, cc, gt, ns, nt, ms, st, un, pw);
+                    System.out.println("\nChúc mừng bạn đã đăng ký thành công tài khoản!!!");
+                    System.out.println("Số tài khoản: " + tk.getMaSo());
+                    System.out.printf("Số dư: %,.0f\n", tk.getSoTien());
+                    System.out.println("Username: " + tk.getUserName());
+                    System.out.println("Password: " + tk.getPassword());
+                    System.out.println("Bạn có thể đổi mật khẩu ở lần đăng nhập tiếp theo!!!");
+                    ql.them(tk);
                     CauHinh.scrPause();
                     break;
                 }
@@ -304,7 +372,6 @@ public class Menu {
                     System.out.print("Password: ");
                     pass = CauHinh.sc.nextLine();
                     TaiKhoanChinh t = new TaiKhoanChinh();
-                    TaiKhoan.dem--;
                     try {
                         t = ql.traCuuUser(user);
                         if (!t.getPassword().equals(pass))

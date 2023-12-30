@@ -17,12 +17,12 @@ public class QuanLyTaiKhoan {
     }
 
     public List<TaiKhoanChinh> traCuu(String ten){
-        return ds.stream().filter(p -> p.hoTen.contains(ten)).collect(Collectors.toList());
+        return ds.stream().filter(p -> p.getHoTen().contains(ten)).collect(Collectors.toList());
     }
 
     public TaiKhoanChinh traCuuDs(String s){
         for(var x : ds)
-            if(x.maSo.equals(s) || x.traCuuDs(s))
+            if(x.getMaSo().equals(s) || x.traCuuDs(s))
                 return x;
         return null;
     }
