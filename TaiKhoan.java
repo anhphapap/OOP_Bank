@@ -2,11 +2,10 @@ package BaiTapLon;
 
 import java.time.LocalDate;
 
-public abstract class TaiKhoan {
+public abstract class TaiKhoan{
     private String hoTen, queQuan, canCuoc, gioiTinh, maSo;
-    private double soTien;
     private LocalDate ngaySinh, ngayTao;
-    
+    private double soTien;
     protected static int dem=0;
     
     public TaiKhoan(){
@@ -24,12 +23,6 @@ public abstract class TaiKhoan {
         this.maSo = maSo;
         this.soTien = soTien;
     }
-    
-    public void guiTien(double x) {
-        this.soTien += x;
-    }
-    
-    abstract public int canRutTien(double x);
     
     public void hienThi() {
         System.out.println("Số tài khoản: " + this.maSo);
@@ -92,7 +85,7 @@ public abstract class TaiKhoan {
     public void setMaSo(String maSo) {
         this.maSo = maSo;
     }
-    
+
     public LocalDate getNgayTao() {
         return ngayTao;
     }

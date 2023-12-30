@@ -80,7 +80,7 @@ public class Menu {
                     if (m == 1) {
                         System.out.print("Nhập số tiền muốn gửi: ");
                         tien = Double.parseDouble(CauHinh.sc.nextLine());
-                        t.guiTien(tien);
+                        t.guiTien(tien,t);
                         System.out.println("Gửi tiền thành công!");
                         System.out.printf("Số dư hiện tại: %,.0f\n", t.getSoTien());
                     } else if (m == l + 2) {
@@ -89,17 +89,7 @@ public class Menu {
                         TaiKhoanKyHan kh = t.getTaiKhoanKH().get(m - 2);
                         System.out.print("Nhập số tiền muốn gửi: ");
                         tien = Double.parseDouble(CauHinh.sc.nextLine());
-                        int gt = kh.guiTien(tien, t);
-                        if (gt == 1) {
-                            System.out.println("Gửi tiền thành công!");
-                            System.out.printf("Số dư hiện tại: %,.0f\n", kh.getSoTien());
-                        } else if (gt == 2) {
-                            System.out.println(
-                                    "Số tiền trong tài khoản chính của bạn không đủ để thực hiện giao dịch này!!!");
-                        } else {
-                            System.out.println(
-                                    "Bạn không thể gửi tiền khi chưa đến ngày đáo hạn! Vui lòng thử lại sau!!!");
-                        }
+                        kh.guiTien(tien, t);
                     }
                     CauHinh.scrPause();
                     break;
@@ -118,44 +108,14 @@ public class Menu {
                     if (m == 1) {
                         System.out.print("Nhập số tiền muốn rút: ");
                         tien = Double.parseDouble(CauHinh.sc.nextLine());
-                        if (t.canRutTien(tien) == 1) {
-                            System.out.println("Rút tiền thành công!");
-                            t.setSoTien(t.getSoTien()-tien);
-                            System.out.printf("Số dư hiện tại: %,.0f\n", t.getSoTien());
-                        } else {
-                            System.out.println("Số dư của bạn không đủ để thực hiện giao dịch!");
-                        }
+                        t.rutTien(tien, t);
                     } else if (m == l + 2) {
                         break;
                     } else {
                         TaiKhoanKyHan kh = t.getTaiKhoanKH().get(m - 2);
                         System.out.print("Nhập số tiền muốn rút: ");
                         tien = Double.parseDouble(CauHinh.sc.nextLine());
-                        int gt = kh.canRutTien(tien);
-                        if (gt == 1) {
-                            System.out.println("Rút tiền thành công!");
-                            kh.setSoTien(kh.getSoTien()-tien);
-                            t.setSoTien(t.getSoTien()+tien);
-                            System.out.printf("Số dư hiện tại: %,.0f\n", kh.getSoTien());
-                            System.out.printf("Số dư tài khoản chính: %,.0f\n", t.getSoTien());
-                        } else if (gt == 2) {
-                            System.out.println(
-                                    "Số dư của bạn không đủ để thực hiện giao dịch này!!!");
-                        } else {
-                            System.out.println(
-                                    "Bạn có muốn rút tiền trước ngày đáo hạn (Bạn chỉ được nhận lãi suất không kỳ hạn(0.2%))");
-                            System.out.println("1.Có\t2.Không");
-                            m = CauHinh.luaChon(1, 2);
-                            if (m == 1) {
-                                System.out.println("Rút tiền thành công!");
-                                kh.setSoTien(kh.getSoTien()-tien);
-                                t.setSoTien(t.getSoTien()+tien+ t.tinhTienLai(tien, kh.getNgayTao()));
-                                System.out.printf("Số dư hiện tại: %,.0f\n", kh.getSoTien());
-                                System.out.printf("Số dư tài khoản chính: %,.0f\n", t.getSoTien());
-                            } else {
-                                break;
-                            }
-                        }
+                        kh.rutTien(tien, t);
                     }
                     CauHinh.scrPause();
                     break;

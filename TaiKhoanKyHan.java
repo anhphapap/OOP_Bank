@@ -2,7 +2,7 @@ package BaiTapLon;
 
 import java.time.LocalDate;
 
-public class TaiKhoanKyHan extends TaiKhoan{
+public class TaiKhoanKyHan extends TaiKhoan implements ChucNang{
     private LocalDate ngayDaoHan;
     private KyHan kyHan;
     
@@ -16,17 +16,45 @@ public class TaiKhoanKyHan extends TaiKhoan{
         this.kyHan = kyHan;
     }
 
-    public int guiTien(double x,TaiKhoanChinh t){
+    public void guiTien(double x,TaiKhoanChinh t){
         if(LocalDate.now().equals(ngayDaoHan)){
             if(t.getSoTien()-x>=0){
-                super.guiTien(x);
+                setSoTien(getSoTien()+x);
                 t.setSoTien(t.getSoTien()-x);
-                return 1;
+                System.out.println("Gửi tiền thành công!");
+                System.out.printf("Số dư hiện tại: %,.0f\n", getSoTien());
             }else{
-                return 2;
+                System.out.println("Số tiền trong tài khoản chính của bạn không đủ để thực hiện giao dịch này!!!");
             }
         }else{
-            return 0;
+            System.out.println("Bạn không thể gửi tiền khi chưa đến ngày đáo hạn! Vui lòng thử lại sau!!!");
+        }
+    }
+
+    public void rutTien(double x, TaiKhoanChinh t){
+        int m;
+        int gt = canRutTien(x);
+        if (gt == 1) {
+            System.out.println("Rút tiền thành công!");
+            setSoTien(getSoTien()-x);
+            t.setSoTien(t.getSoTien()+x);
+            System.out.printf("Số dư hiện tại: %,.0f\n", getSoTien());
+            System.out.printf("Số dư tài khoản chính: %,.0f\n", t.getSoTien());
+        } else if (gt == 2) {
+            System.out.println(
+                    "Số dư của bạn không đủ để thực hiện giao dịch này!!!");
+        } else {
+            System.out.println(
+                    "Bạn có muốn rút tiền trước ngày đáo hạn (Bạn chỉ được nhận lãi suất không kỳ hạn(0.2%))");
+            System.out.println("1.Có\t2.Không");
+            m = CauHinh.luaChon(1, 2);
+            if (m == 1) {
+                System.out.println("Rút tiền thành công!");
+                setSoTien(getSoTien()-x);
+                t.setSoTien(t.getSoTien()+x+ t.tinhTienLai(x, getNgayTao()));
+                System.out.printf("Số dư hiện tại: %,.0f\n", getSoTien());
+                System.out.printf("Số dư tài khoản chính: %,.0f\n", t.getSoTien());
+            }
         }
     }
 

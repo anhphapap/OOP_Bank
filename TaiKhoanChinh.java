@@ -5,7 +5,7 @@ import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TaiKhoanChinh extends TaiKhoan {
+public class TaiKhoanChinh extends TaiKhoan implements ChucNang{
     private String userName, password;
     private List<TaiKhoanKyHan> taiKhoanKH = new ArrayList<>();
 
@@ -90,11 +90,18 @@ public class TaiKhoanChinh extends TaiKhoan {
         return x * 0.2 / 100 * soThang;
     }
 
-    public int canRutTien(double x) {
-        if (x <= this.getSoTien())
-            return 1;
-        else
-            return 0;
+    public void guiTien(double x, TaiKhoanChinh t){
+        this.setSoTien(getSoTien()+x);
+    }
+
+    public void rutTien(double x, TaiKhoanChinh t){
+        if (x <= this.getSoTien()) {
+            System.out.println("Rút tiền thành công!");
+            setSoTien(getSoTien()-x);
+            System.out.printf("Số dư hiện tại: %,.0f\n", getSoTien());
+        } else {
+            System.out.println("Số dư của bạn không đủ để thực hiện giao dịch!");
+        }
     }
 
     public double tongSoTien() {
