@@ -13,10 +13,10 @@ public class TaiKhoanChinh extends TaiKhoan implements ChucNang{
 
     }
 
-    public TaiKhoanChinh(String hoTen, String queQuan, String canCuoc, String gioiTinh, LocalDate ngaySinh, LocalDate ngayTao, String maSo, double soTien, String userName, String password) {
-        super(hoTen, queQuan, canCuoc, gioiTinh, ngaySinh, ngayTao, maSo, soTien);
-        this.userName = userName;
-        this.password = password;
+    public TaiKhoanChinh(String ht, String qq, String cc, String gt, LocalDate ns, LocalDate nt, String ms, double st, String un, String pw) {
+        super(ht, qq, cc, gt, ns, nt, ms, st);
+        this.userName = un;
+        this.password = pw;
     }
 
     public void taoTKKyHan() {
@@ -26,7 +26,7 @@ public class TaiKhoanChinh extends TaiKhoan implements ChucNang{
         nt = this.getNgayTao();
         int lc;
         System.out.println("1.Một tuần(2%/năm)\n2.Một tháng(5.5%/năm)\n3.Sáu tháng(7.5%/năm)\n4.Một năm(7.9%/năm)\n5.Hủy");
-        lc = CauHinh.luaChon(1, 5);
+        lc = CauHinh.choose(1, 5);
         switch(lc){
             case 1:{
                 kh = KyHan.MOT_TUAN;
@@ -77,17 +77,15 @@ public class TaiKhoanChinh extends TaiKhoan implements ChucNang{
     }
 
     public double tinhTienLai() {
-        double tien = 0;
         Period khoangThoiGian = getNgayTao().until(LocalDate.now());
         int soThang = khoangThoiGian.getYears() * 12 + khoangThoiGian.getMonths();
-        tien += getSoTien() * 0.2 / 100 * soThang;
-        return tien;
+        return getSoTien() * 0.2 / 100 / 12 * soThang;
     }
 
     public double tinhTienLai(double x, LocalDate nt) {
         Period khoangThoiGian = nt.until(LocalDate.now());
         int soThang = khoangThoiGian.getYears() * 12 + khoangThoiGian.getMonths();
-        return x * 0.2 / 100 * soThang;
+        return x * 0.2 / 100 / 12 * soThang;
     }
 
     public void guiTien(double x, TaiKhoanChinh t){
@@ -111,7 +109,7 @@ public class TaiKhoanChinh extends TaiKhoan implements ChucNang{
         return sum;
     }
 
-    public boolean traCuuDs(String s) {
+    public boolean isTraCuuDs(String s) {
         for (var x : taiKhoanKH)
             if (x.getMaSo().equals(s))
                 return true;

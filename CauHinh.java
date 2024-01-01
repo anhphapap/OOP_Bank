@@ -22,7 +22,7 @@ public class CauHinh {
                 Runtime.getRuntime().exec("clear");
         } catch (IOException | InterruptedException ex) {}
      }
-     public static boolean isNumberString(String s, int n){
+     public static boolean isStringNumber(String s, int n){
         if(n!=0 && s.length()!=n){
             return false;
         }
@@ -36,7 +36,7 @@ public class CauHinh {
         } 
         return true;
      }
-     public static int luaChon(int l, int r){
+     public static int choose(int l, int r){
         boolean c;
         int n=-1;
         do {

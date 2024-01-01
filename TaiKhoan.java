@@ -6,22 +6,22 @@ public abstract class TaiKhoan{
     private String hoTen, queQuan, canCuoc, gioiTinh, maSo;
     private LocalDate ngaySinh, ngayTao;
     private double soTien;
-    protected static int dem=0;
+    protected static int dem=1;
     
     public TaiKhoan(){
         
     }
     
-    public TaiKhoan(String hoTen, String queQuan, String canCuoc, String gioiTinh, LocalDate ngaySinh, LocalDate ngayTao, String maSo, double soTien) {
+    public TaiKhoan(String ht, String qq, String cc, String gt, LocalDate ns, LocalDate nt, String ms, double st) {
         ++dem;
-        this.hoTen = hoTen;
-        this.queQuan = queQuan;
-        this.canCuoc = canCuoc;
-        this.gioiTinh = gioiTinh;
-        this.ngaySinh = ngaySinh;
-        this.ngayTao = ngayTao;
-        this.maSo = maSo;
-        this.soTien = soTien;
+        this.hoTen = ht;
+        this.queQuan = qq;
+        this.canCuoc = cc;
+        this.gioiTinh = gt;
+        this.ngaySinh = ns;
+        this.ngayTao = nt;
+        this.maSo = ms;
+        this.soTien = st;
     }
     
     public void hienThi() {

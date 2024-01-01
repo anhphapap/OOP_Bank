@@ -22,7 +22,7 @@ public class QuanLyTaiKhoan {
 
     public TaiKhoanChinh traCuuDs(String s){
         for(var x : ds)
-            if(x.getMaSo().equals(s) || x.traCuuDs(s))
+            if(x.getMaSo().equals(s) || x.isTraCuuDs(s))
                 return x;
         return null;
     }
@@ -30,15 +30,7 @@ public class QuanLyTaiKhoan {
     public TaiKhoanChinh traCuuUser(String user){
         return ds.stream().filter(p -> p.getUserName().equals(user)).findFirst().get();
     }
-
-    public void sapXep(){
-        ds.sort(Comparator.comparing(TaiKhoanChinh::tongSoTien).reversed());
-    }
-
-    public void hienThi(){
-        for(var x : ds) System.out.print(x);
-    }
-
+    
     public boolean isUser(String user){
         for(var x : this.ds){
             if(x.getUserName().equals(user)){
@@ -47,5 +39,13 @@ public class QuanLyTaiKhoan {
             }
         }
         return false;
+    }
+
+    public void sapXep(){
+        ds.sort(Comparator.comparing(TaiKhoanChinh::tongSoTien).reversed());
+    }
+
+    public void hienThi(){
+        for(var x : ds) System.out.print(x);
     }
 }

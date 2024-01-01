@@ -16,7 +16,7 @@ public class Menu {
         System.out.println("2.Đăng nhập");
         System.out.println("3.Thoát");
         System.out.println("========Welcome========");
-        n = CauHinh.luaChon(0, 3);
+        n = CauHinh.choose(0, 3);
         return n;
     }
 
@@ -35,7 +35,7 @@ public class Menu {
         System.out.println("10.Đổi mật khẩu");
         System.out.println("11.Đăng xuất");
         System.out.println("===================Menu===================");
-        n = CauHinh.luaChon(1, 11);
+        n = CauHinh.choose(1, 11);
         return n;
     }
 
@@ -62,7 +62,7 @@ public class Menu {
                         sum+=x.tinhTienLai();
                         i++;
                     }
-                    System.out.printf("\n->Tổng số tiền lãi hiện tại: %,.3f\n",sum);
+                    System.out.printf("\n->Tổng số tiền lãi hiện tại: %,.0f\n",sum);
                     CauHinh.scrPause();
                     break; 
                 }
@@ -76,7 +76,7 @@ public class Menu {
                         System.out.printf("%d.Tài khoản kỳ hạn %s (%s)\n", i + 2,
                                 t.getTaiKhoanKH().get(i).getKyHan().layTen(), t.getTaiKhoanKH().get(i).getMaSo());
                     System.out.printf("%d.Hủy\n", l + 2);
-                    m = CauHinh.luaChon(1, l + 2);
+                    m = CauHinh.choose(1, l + 2);
                     if (m == 1) {
                         System.out.print("Nhập số tiền muốn gửi: ");
                         tien = Double.parseDouble(CauHinh.sc.nextLine());
@@ -104,7 +104,7 @@ public class Menu {
                         System.out.printf("%d.Tài khoản kỳ hạn %s (%s)\n", i + 2,
                                 t.getTaiKhoanKH().get(i).getKyHan().layTen(), t.getTaiKhoanKH().get(i).getMaSo());
                     System.out.printf("%d.Hủy\n", l + 2);
-                    m = CauHinh.luaChon(1, l + 2);
+                    m = CauHinh.choose(1, l + 2);
                     if (m == 1) {
                         System.out.print("Nhập số tiền muốn rút: ");
                         tien = Double.parseDouble(CauHinh.sc.nextLine());
@@ -186,7 +186,7 @@ public class Menu {
                     }
                     System.out.print("Nhập mật khẩu mới (6 chữ số): ");
                     newPass = CauHinh.sc.nextLine();
-                    if (CauHinh.isNumberString(newPass, 6)) {
+                    if (CauHinh.isStringNumber(newPass, 6)) {
                         System.out.print("Xác nhận mật khẩu mới: ");
                         newPass1 = CauHinh.sc.nextLine();
                         if (newPass1.equals(newPass)) {
@@ -272,7 +272,7 @@ public class Menu {
                         check = false;
                         System.out.print("Số căn cước: ");
                         cc = CauHinh.sc.nextLine();
-                        if (!CauHinh.isNumberString(cc, 0)) {
+                        if (!CauHinh.isStringNumber(cc, 0)) {
                             check = true;
                             System.out.println("Số căn cước không hợp lệ (Chỉ bao gồm các chữ số)! Vui lòng thử lại!!!");
                         }

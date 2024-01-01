@@ -10,10 +10,10 @@ public class TaiKhoanKyHan extends TaiKhoan implements ChucNang{
 
     }
     
-    public TaiKhoanKyHan(String hoTen, String queQuan, String canCuoc, String gioiTinh, LocalDate ngaySinh, LocalDate ngayTao, String maSo, double soTien,LocalDate ngayDaoHan, KyHan kyHan) {
-        super(hoTen, queQuan, canCuoc, gioiTinh, ngaySinh, ngayTao, maSo, soTien);
-        this.ngayDaoHan = ngayDaoHan;
-        this.kyHan = kyHan;
+    public TaiKhoanKyHan(String ht, String qq, String cc, String gt, LocalDate ns, LocalDate nt, String ms, double st,LocalDate ndh, KyHan kh) {
+        super(ht, qq, cc, gt, ns, nt, ms, st);
+        this.ngayDaoHan = ndh;
+        this.kyHan = kh;
     }
 
     public void guiTien(double x,TaiKhoanChinh t){
@@ -47,7 +47,7 @@ public class TaiKhoanKyHan extends TaiKhoan implements ChucNang{
             System.out.println(
                     "Bạn có muốn rút tiền trước ngày đáo hạn (Bạn chỉ được nhận lãi suất không kỳ hạn(0.2%))");
             System.out.println("1.Có\t2.Không");
-            m = CauHinh.luaChon(1, 2);
+            m = CauHinh.choose(1, 2);
             if (m == 1) {
                 System.out.println("Rút tiền thành công!");
                 setSoTien(getSoTien()-x);
