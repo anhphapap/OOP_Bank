@@ -65,7 +65,7 @@ public class TaiKhoanChinh extends TaiKhoan implements ChucNang{
             return;
         }
         ndh = kh.tinhDaoHan(nt);
-        String ms = String.format("%d%d%d%04d", nt.getDayOfMonth(),nt.getMonthValue(),nt.getYear(),dem);
+        String ms = String.format("%d%02d%d%04d", nt.getDayOfMonth(),nt.getMonthValue(),nt.getYear(),dem);
         TaiKhoanKyHan tk = new TaiKhoanKyHan(getHoTen(), getQueQuan(), getCanCuoc(), getGioiTinh(), getNgaySinh(), getNgayTao(), ms, st, ndh, kh); 
         System.out.println(
                 "\nChúc mừng bạn đã đăng ký thành công tài khoản kỳ hạn " + tk.getKyHan().layTen() + "!!!");
@@ -109,11 +109,11 @@ public class TaiKhoanChinh extends TaiKhoan implements ChucNang{
         return sum;
     }
 
-    public boolean isTraCuuDs(String s) {
+    public TaiKhoanKyHan traCuuTK(String s) {
         for (var x : taiKhoanKH)
             if (x.getMaSo().equals(s))
-                return true;
-        return false;
+                return x;
+        return null;
     }
 
     public void hienThiDs() {

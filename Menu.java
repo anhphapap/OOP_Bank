@@ -25,17 +25,18 @@ public class Menu {
         System.out.println("\n===================Menu===================");
         System.out.println("1.Mở tài khoản kỳ hạn");
         System.out.println("2.Tính tiền lãi");
-        System.out.println("3.Gửi tiền");
-        System.out.println("4.Rút tiền");
-        System.out.println("5.Hiển thị danh sách tài khoản");
-        System.out.println("6.Tra cứu danh sách tài khoản khách hàng");
-        System.out.println("7.Tra cứu khách hàng theo họ tên");
-        System.out.println("8.Tra cứu khách hàng theo mã số khách hàng");
-        System.out.println("9.Sắp xếp & xem danh sách khách hàng");
-        System.out.println("10.Đổi mật khẩu");
-        System.out.println("11.Đăng xuất");
+        System.out.println("3.Tính tiền lãi theo mã khách hàng");
+        System.out.println("4.Gửi tiền");
+        System.out.println("5.Rút tiền");
+        System.out.println("6.Hiển thị danh sách tài khoản");
+        System.out.println("7.Tra cứu danh sách tài khoản khách hàng");
+        System.out.println("8.Tra cứu khách hàng theo họ tên");
+        System.out.println("9.Tra cứu khách hàng theo mã số khách hàng");
+        System.out.println("10.Sắp xếp & xem danh sách khách hàng");
+        System.out.println("11.Đổi mật khẩu");
+        System.out.println("12.Đăng xuất");
         System.out.println("===================Menu===================");
-        n = CauHinh.choose(1, 11);
+        n = CauHinh.choose(1, 12);
         return n;
     }
 
@@ -66,7 +67,21 @@ public class Menu {
                     CauHinh.scrPause();
                     break; 
                 }
-                case 3: {
+                case 3:{
+                    String ms;
+                    System.out.print("Nhập mã số khách hàng: ");
+                    ms = CauHinh.sc.nextLine();
+                    TaiKhoan tk = ql.traCuuTK(ms);
+                    if (tk != null) {
+                        System.out.println(tk);
+                        System.out.printf("->Tiền lãi: %,.0f" + tk.tinhTienLai());
+                    } else {
+                        System.out.println("\nMã khách hàng không tồn tại!!!");
+                    }
+                    CauHinh.scrPause();
+                    break;
+                }
+                case 4: {
                     int l = t.getTaiKhoanKH().size();
                     int m;
                     double tien;
@@ -94,7 +109,7 @@ public class Menu {
                     CauHinh.scrPause();
                     break;
                 }
-                case 4: {
+                case 5: {
                     int l = t.getTaiKhoanKH().size();
                     int m;
                     double tien;
@@ -120,12 +135,12 @@ public class Menu {
                     CauHinh.scrPause();
                     break;
                 }
-                case 5: {
+                case 6: {
                     t.hienThiDs();
                     CauHinh.scrPause();
                     break;
                 }
-                case 6: {
+                case 7: {
                     String ms;
                     System.out.print("Nhập mã số khách hàng: ");
                     ms = CauHinh.sc.nextLine();
@@ -139,7 +154,7 @@ public class Menu {
                     CauHinh.scrPause();
                     break;
                 }
-                case 7: {
+                case 8: {
                     String ten;
                     System.out.print("Nhập tên khách hàng: ");
                     ten = CauHinh.sc.nextLine();
@@ -154,28 +169,28 @@ public class Menu {
                     CauHinh.scrPause();
                     break;
                 }
-                case 8: {
+                case 9: {
                     String ms;
                     System.out.print("Nhập mã số khách hàng: ");
                     ms = CauHinh.sc.nextLine();
-                    TaiKhoanChinh tk = ql.traCuuDs(ms);
+                    TaiKhoan tk = ql.traCuuTK(ms);
                     if (tk != null) {
                         System.out.print("\nTra cứu thành công!");
-                        System.out.print(tk.toString());
+                        System.out.print(tk);
                     } else {
                         System.out.println("\nKhông tìm thấy kết quả nào phù hợp!!!");
                     }
                     CauHinh.scrPause();
                     break;
                 }
-                case 9: {
+                case 10: {
                     System.out.println("\n======Danh sách khách hàng======");
                     ql.sapXep();
                     ql.hienThi();
                     CauHinh.scrPause();
                     break;
                 }
-                case 10: {
+                case 11: {
                     String curPass, newPass, newPass1;
                     System.out.print("Nhập mật khẩu hiện tại: ");
                     curPass = CauHinh.sc.nextLine();
@@ -201,7 +216,7 @@ public class Menu {
                     CauHinh.scrPause();
                     break;
                 }
-                case 11: {
+                case 12: {
                     return;
                 }
             }

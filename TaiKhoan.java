@@ -23,6 +23,8 @@ public abstract class TaiKhoan{
         this.maSo = ms;
         this.soTien = st;
     }
+
+    public abstract double tinhTienLai();
     
     public void hienThi() {
         System.out.println("Số tài khoản: " + this.maSo);

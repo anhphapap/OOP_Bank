@@ -83,6 +83,6 @@ public class TaiKhoanKyHan extends TaiKhoan implements ChucNang{
 
     @Override
     public String toString(){
-        return String.format("\nSố tài khoản: %s\nKỳ hạn: %s\n", this.getMaSo(), this.kyHan.layTen());
+        return String.format("\nHọ tên: %s\nGiới tính: %s\nQuê quán: %s\nCăn cước: %s\nSố tài khoản: %s\nKỳ hạn: %s\n",this.getHoTen(),this.getGioiTinh(), this.getQueQuan(), this.getCanCuoc(), this.getMaSo(), this.kyHan.layTen());
     }
 }

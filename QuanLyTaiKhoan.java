@@ -22,8 +22,19 @@ public class QuanLyTaiKhoan {
 
     public TaiKhoanChinh traCuuDs(String s){
         for(var x : ds)
-            if(x.getMaSo().equals(s) || x.isTraCuuDs(s))
+            if(x.getMaSo().equals(s) || x.traCuuTK(s)!=null)
                 return x;
+        return null;
+    }
+
+    public TaiKhoan traCuuTK(String s){
+        for(var x : ds){
+            TaiKhoanKyHan t = x.traCuuTK(s);
+            if(x.getMaSo().equals(s))
+                return x;
+            else if(t!=null)
+                return t;
+        }
         return null;
     }
 
