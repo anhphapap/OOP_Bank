@@ -57,6 +57,9 @@ public class QuanLyTaiKhoan {
     }
 
     public void hienThi(){
-        for(var x : ds) System.out.print(x);
+        for(var x : ds) {
+            System.out.print(x);
+            System.out.printf("Tổng số dư: %,.0f\n", x.tongSoTien());
+        }
     }
 }

@@ -65,7 +65,7 @@ public class TaiKhoanChinh extends TaiKhoan implements ChucNang{
             return;
         }
         ndh = kh.tinhDaoHan(nt);
-        String ms = String.format("%d%02d%d%04d", nt.getDayOfMonth(),nt.getMonthValue(),nt.getYear(),dem);
+        String ms = String.format("%02d%02d%d%04d", nt.getDayOfMonth(),nt.getMonthValue(),nt.getYear(),dem);
         TaiKhoanKyHan tk = new TaiKhoanKyHan(getHoTen(), getQueQuan(), getCanCuoc(), getGioiTinh(), getNgaySinh(), getNgayTao(), ms, st, ndh, kh); 
         System.out.println(
                 "\nChúc mừng bạn đã đăng ký thành công tài khoản kỳ hạn " + tk.getKyHan().layTen() + "!!!");
